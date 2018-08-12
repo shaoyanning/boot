@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mybatis核心文件,用来封装优化数据库读取操作 -->
+<mapper namespace="cn.boot.dao.ProductDao">
+  
+	<!-- parameterType 传入的类型,mybatis有系统别名,并且支持自定义别名 -->
+	<insert id="save" parameterType="product">
+		insert into product (<include refid="param" />) values (<include refid="value" />)
+	</insert>
+	
+	<!-- sql代码片段 -->
+	<sql id="param">
+	    <trim suffixOverrides=",">
+		    <if test="name!=null">pro_name,</if>
+		    <if test="price!=null">pro_price,</if>
+		    <if test="remark!=null">pro_remark,</if>
+		    <if test="date!=null">pro_date,</if>
+	    </trim>
+	</sql>
+	
+	<sql id="value">
+		<trim suffixOverrides=",">
+		    <if test="name!=null">#{name},</if>
+		    <if test="price!=null">#{price},</if>
+		    <if test="remark!=null">#{remark},</if>
+		    <if test="date!=null">#{date},</if>
+	    </trim>
+	</sql>
+	
+
+	
+</mapper>
+
